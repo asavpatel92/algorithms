@@ -54,7 +54,7 @@ def mergeSort(array, startIndex, endIndex):
         merge(array, startIndex, endIndex, midPoint)
         
 def main():
-    n = 100
+    n = 10
     array = [random.randint(0, 100) for _ in range(n)] 
     print "Unsorted array is: ", array
     mergeSort(array, 0, len(array) - 1)
