@@ -5,16 +5,15 @@ import random
 #===============================================================================
 #  Swaps two items in an array, changing the original array
 #===============================================================================
-def swap(array, firstIndex, secondIndex):
-    temp = array[firstIndex];
-    array[firstIndex] = array[secondIndex]
-    array[secondIndex] = temp
-    
+def swap(array, index1, index2):
+    array[index1], array[index2] = array[index2], array[index1]
+    return array    
 
 #===============================================================================
 #  This function partitions given array and returns the index of the pivot.
 #===============================================================================
-def partition(array, firstIndex, lastIndex):
+ 
+def partition(array, start_index, end_index):
     
     #===========================================================================
     # #=========================================================================
@@ -32,28 +31,27 @@ def partition(array, firstIndex, lastIndex):
     # #=========================================================================
     #===========================================================================
     
-    q = firstIndex
-    p = firstIndex
-    for p in range(firstIndex, lastIndex):
-        if(array[p] <= array[lastIndex]):
-            swap(array, p, q)
-            q += 1
-        p += 1
-    swap(array, lastIndex, q)
-    return q
-
-def quickSort(array, firstIndex, lastIndex):
-    if(firstIndex < lastIndex):
-        pivot  = partition(array, firstIndex, lastIndex)
-        quickSort(array, firstIndex, pivot - 1)
-        quickSort(array, pivot + 1, lastIndex)
+    current_index = start_index
+    for i in range(start_index, end_index):
+        if array[i] <= array[end_index]:
+            swap(array, i, current_index)
+            current_index += 1
+    swap(array, current_index, end_index)
+    return current_index
+ 
+ 
+def quick_sort(array, start_index, end_index):
+    if start_index < end_index:
+        pivot = partition(array, start_index, end_index)
+        quick_sort(array, start_index, pivot - 1)
+        quick_sort(array, pivot + 1, end_index)
     
 def main():
     n = 10
-    array = [random.randint(0, 100) for _ in range(n)] 
-    print "Unsorted array is: ", array
-    quickSort(array, 0, len(array) - 1)
-    print "Sorted array is: ", array
+    array = [random.randint(0,100) for _ in range(n)]
+    print "Unsorted Array is : %s" %(array)
+    quick_sort(array, 0, len(array) - 1)
+    print "Sorted Array is : %s" %(array) 
     
 if __name__ == '__main__':
     main()
